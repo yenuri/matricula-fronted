@@ -24,7 +24,7 @@ const UpdateUserNameExecutor = (
     }
 }
 
-export const userReducer = (
+export const sessionReducer = (
     state: SessionState = getInitialState(),
     action: SessionAction
 ) => {
