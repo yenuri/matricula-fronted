@@ -1,4 +1,8 @@
-import { SessionAction, SessionActionType } from '../actions/session'
+import {
+    SessionActionType,
+    updateUserName,
+} from '../actions/session'
+import { createReducer } from '@reduxjs/toolkit'
 
 export interface SessionState {
     userName: string
@@ -16,15 +20,15 @@ const getInitialState = (): SessionState => {
 
 const UpdateUserNameExecutor = (
     state: SessionState,
-    { payload }: SessionAction
+    { payload }: ReturnType<typeof updateUserName>
 ) => {
     return {
         ...state,
-        userName: payload.userName,
+        userName: payload,
     }
 }
 
-export const sessionReducer = (
+/*export const sessionReducer = (
     state: SessionState = getInitialState(),
     action: SessionAction
 ) => {
@@ -35,4 +39,13 @@ export const sessionReducer = (
         default:
             return state
     }
+}*/
+
+const sessionReducerBuilder = (builder: any) => {
+    builder.addCase(updateUserName, UpdateUserNameExecutor)
 }
+
+export const sessionReducer = createReducer(
+    getInitialState(),
+    sessionReducerBuilder
+)
