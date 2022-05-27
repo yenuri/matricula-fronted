@@ -1,8 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Login from './components/Login'
-import Students from './components/Students'
+import Login from './pages/Login'
+import Students from './pages/Students'
+import { decodeToken, getToken } from './utils/tokenManagment'
+import { useDispatch } from 'react-redux'
+import { SessionActions } from './store/actions/session'
 
 const MainRouter = () => {
+    const token = getToken()
+    const dispatch = useDispatch()
+    if (token) {
+        const decodeUserData = decodeToken()
+        dispatch(SessionActions.onLoginSuccess(decodeUserData))
+    }
     return (
         <BrowserRouter>
             <Routes>

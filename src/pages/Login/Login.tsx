@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -12,11 +11,12 @@ import Grid from '@mui/material/Grid'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { loginUser } from '../../store/actions/session'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateUserName } from '../../store/actions/session'
+import { LoadingButton, Alert } from '@mui/lab'
 import {
-    sessionStateSelector,
-    userNameStateSelector,
+    sessionAuthenticationError,
+    sessionAuthenticationInProgressSelector,
 } from '../../store/selectors/session'
 
 function Copyright(props: any) {
@@ -41,15 +41,19 @@ const theme = createTheme()
 
 const Login = function () {
     const dispatch = useDispatch()
-    const userName = useSelector(userNameStateSelector)
+    const authenticationInProgress = useSelector(
+        sessionAuthenticationInProgressSelector
+    )
+    const authenticationError = useSelector(sessionAuthenticationError)
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
-        dispatch(updateUserName(data.get('userName') as string))
-        console.log({
-            email: data.get('userName'),
+        const userData = {
+            username: data.get('userName'),
             password: data.get('password'),
-        })
+        }
+        // @ts-ignore
+        dispatch(loginUser(userData))
     }
 
     return (
@@ -132,22 +136,36 @@ const Login = function () {
                                 }
                                 label="Remember me"
                             />
-                            <Button
+                            <LoadingButton
+                                disabled={authenticationInProgress}
                                 type="submit"
                                 fullWidth
+                                loading={authenticationInProgress}
                                 variant="contained"
+                                loadingPosition="end"
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Sign In
-                            </Button>
+                            </LoadingButton>
+                            {authenticationError && (
+                                <Alert severity="error">
+                                    {authenticationError.message}
+                                </Alert>
+                            )}
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
+                                    <Link
+                                        href="src/pages/Login/Login#"
+                                        variant="body2"
+                                    >
                                         Forgot password?
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
+                                    <Link
+                                        href="src/pages/Login/Login#"
+                                        variant="body2"
+                                    >
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>
