@@ -15,9 +15,12 @@ import { loginUser } from '../../store/actions/session'
 import { useDispatch, useSelector } from 'react-redux'
 import { LoadingButton, Alert } from '@mui/lab'
 import {
+    sessionAuthenticatedSelector,
     sessionAuthenticationError,
     sessionAuthenticationInProgressSelector,
 } from '../../store/selectors/session'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 function Copyright(props: any) {
     return (
@@ -41,10 +44,19 @@ const theme = createTheme()
 
 const Login = function () {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const authenticationInProgress = useSelector(
         sessionAuthenticationInProgressSelector
     )
     const authenticationError = useSelector(sessionAuthenticationError)
+    const userIsAuthenticated = useSelector(sessionAuthenticatedSelector)
+
+    useEffect(() => {
+        if (userIsAuthenticated) {
+            navigate('/students')
+        }
+    }, [navigate, userIsAuthenticated])
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
