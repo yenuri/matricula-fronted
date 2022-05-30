@@ -4,8 +4,14 @@ import Students from './pages/Students'
 import { decodeToken, getToken } from './utils/tokenManagment'
 import { useDispatch } from 'react-redux'
 import { SessionActions } from './store/actions/session'
-import { baseRoute, loginRoute, studentsRoute } from './constants/routes'
+import {
+    baseRoute,
+    coursesRoute,
+    loginRoute,
+    studentsRoute,
+} from './constants/routes'
 import PrivateRoute from './components/PrivateRoute'
+import Courses from './pages/Courses'
 
 const MainRouter = () => {
     const token = getToken()
@@ -24,6 +30,14 @@ const MainRouter = () => {
                     element={
                         <PrivateRoute>
                             <Students />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path={coursesRoute}
+                    element={
+                        <PrivateRoute>
+                            <Courses />
                         </PrivateRoute>
                     }
                 />
