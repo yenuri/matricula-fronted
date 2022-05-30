@@ -1,5 +1,6 @@
 import {StudentsState} from "../reducers/students";
 import {createSelector} from "@reduxjs/toolkit";
+import {MapToList} from "../../utils/transformation";
 
 export const studentsStateSelector = (state: any): StudentsState => state.students;
 
@@ -65,3 +66,8 @@ export const deleteStudentError = createSelector(
         return studentState.deleteStudentError;
     }
 );
+
+export const studentsMapSelector = createSelector(
+    studentListSelector,
+    (customerList) => MapToList(customerList)
+)

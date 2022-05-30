@@ -7,11 +7,13 @@ import { SessionActions } from './store/actions/session'
 import {
     baseRoute,
     coursesRoute,
-    loginRoute,
+    loginRoute, matriculasRoute,
     studentsRoute,
 } from './constants/routes'
 import PrivateRoute from './components/PrivateRoute'
 import Courses from './pages/Courses'
+import MatriculaCreate from "./pages/MatriculaCreate/MatriculaCreate";
+import Matriculas from "./pages/Matriculas/Matricula";
 
 const MainRouter = () => {
     const token = getToken()
@@ -38,6 +40,23 @@ const MainRouter = () => {
                     element={
                         <PrivateRoute>
                             <Courses />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path={`${matriculasRoute}/new`}
+                    element={
+                        <PrivateRoute>
+                            <MatriculaCreate />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    path={matriculasRoute}
+                    element={
+                        <PrivateRoute>
+                            <Matriculas />
                         </PrivateRoute>
                     }
                 />

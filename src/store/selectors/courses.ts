@@ -1,5 +1,6 @@
 import { CoursesState } from '../reducers/courses'
 import { createSelector } from '@reduxjs/toolkit'
+import {MapToList} from "../../utils/transformation";
 
 export const coursesStateSelector = (state: any): CoursesState => state.courses
 
@@ -65,3 +66,9 @@ export const deleteCourseError = createSelector(
         return courseState.deleteCourseError
     }
 )
+
+export const coursesMapSelector = createSelector(
+    courseListSelector,
+    (plateList) => MapToList(plateList)
+)
+

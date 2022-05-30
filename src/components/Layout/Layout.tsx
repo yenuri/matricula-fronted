@@ -166,7 +166,7 @@ export default function DashboardContent(props: any) {
                     <List>
                         <ListItem onClick={() => goTo(coursesRoute)} button>
                             <ListItemIcon>
-                                <FastfoodIcon/>
+                                <FileCopyIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Courses"/>
                         </ListItem>
@@ -188,7 +188,7 @@ export default function DashboardContent(props: any) {
                             button
                         >
                             <ListItemIcon>
-                                <ShoppingCartIcon/>
+                                <FileCopyIcon/>
                             </ListItemIcon>
                             <ListItemText primary="new Matricula"/>
                         </ListItem>
