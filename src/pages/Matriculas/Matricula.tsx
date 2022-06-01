@@ -71,7 +71,7 @@ function Matriculas() {
     const renderListStudents = () => {
         return state.list.data.map((data: any, i: any) => (
             <ListItem key={i}>
-                <ListItemText primary={data.descripcion} />
+                <ListItemText primary={data.id} />
                 <ListItemSecondaryAction>
                     <IconButton
                         edge="end"
@@ -91,7 +91,7 @@ function Matriculas() {
         }
         return state.filterList.data.map((data: any, i: any) => (
             <ListItem key={i}>
-                <ListItemText primary={data.descripcion} />
+                <ListItemText primary={data.id} />
                 <ListItemSecondaryAction>
                     <IconButton
                         edge="end"

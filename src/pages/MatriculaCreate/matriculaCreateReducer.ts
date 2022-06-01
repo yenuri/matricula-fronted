@@ -31,33 +31,22 @@ export const matriculaCreateReducer = (state: any, action: Action) => {
     }
 }
 
-function removeOrderEntry(
-    state: { orders: { [x: string]: any } },
-    order: { id: string | number }
-) {
-    const existingEntry = { ...state.orders[order.id] }
-    existingEntry.quantity -= 1
-    if (existingEntry.quantity === 0) {
+function removeOrderEntry(state, order) {
         const { [order.id]: toRemove, ...remainingOrders } = state.orders
         return {
             ...state,
             orders: remainingOrders,
         }
-    }
     return {
         ...state,
-        orders: { ...state.orders, [existingEntry.id]: existingEntry },
+        orders: { ...state.orders},
     }
 }
 
-function addOrderEntry(
-    state: { orders: { [x: string]: any } },
-    course: { id: string | number; name: any }
-) {
+function addOrderEntry( state, course) {
     const existingEntry = state.orders[course.id]
     if (existingEntry) {
         const newEntry = { ...existingEntry }
-        newEntry.quantity += 1
         return {
             ...state,
             orders: { ...state.orders, [newEntry.id]: newEntry },
@@ -66,8 +55,8 @@ function addOrderEntry(
 
     const newEntry = {
         id: course.id,
-        quantity: 1,
-        nombre: course.name,
+        name: course.name,
+        birthday: Date.now()
     }
 
     return {
@@ -76,14 +65,14 @@ function addOrderEntry(
     }
 }
 
-function updateDescription(state: any, description: any) {
+function updateDescription(state, description) {
     return {
         ...state,
         description,
     }
 }
 
-function updateObservation(state: any, observation: any) {
+function updateObservation(state, observation) {
     return {
         ...state,
         observation,
@@ -94,7 +83,7 @@ function resetState() {
     return getInitialState()
 }
 
-function resetOrders(state: any) {
+function resetOrders(state) {
     return {
         ...state,
         orders: {},
@@ -102,9 +91,9 @@ function resetOrders(state: any) {
 }
 
 export function getInitialState() {
-    return { observation: '', description: '', orders: {} }
+    return { orders: {} }
 }
 
-export function fireAction(type: any, payload = undefined) {
+export function fireAction(type, payload = undefined) {
     return { type, payload }
 }

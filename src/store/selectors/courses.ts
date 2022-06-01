@@ -69,6 +69,6 @@ export const deleteCourseError = createSelector(
 
 export const coursesMapSelector = createSelector(
     courseListSelector,
-    (plateList) => MapToList(plateList)
+    (courseList) => MapToList(courseList)
 )
 

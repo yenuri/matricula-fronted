@@ -25,10 +25,10 @@ export const useCreateMatricula = (): UseCreateMatriculaReturnType => {
         }
     }, [updateResult])
 
-    const createMatricula = async (matriculaDate: any) => {
+    const createMatricula = async (matriculaData: any) => {
         setUpdateInProgress(true)
         try {
-            const response = await httpClient.post(matriculasUrl, matriculaDate)
+            const response = await httpClient.post(matriculasUrl, matriculaData)
             setUpdateResult(response)
         } catch (e) {
             setUpdateError(e as Error)

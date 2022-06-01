@@ -94,7 +94,7 @@ export const getMatriculaDetail =
             const jsonResponse = {
                 matricula: matriculaResponse.data,
                 student: responseStudent.data,
-                courses: coursesResponse,
+                course: coursesResponse,
             };
 
             dispatch(geMatriculasDetailSuccess(jsonResponse));

@@ -8,13 +8,13 @@ import {
     useReducer,
     useState,
 } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { studentsMapSelector } from '../../store/selectors/students'
-import { coursesMapSelector } from '../../store/selectors/courses'
+import {useDispatch, useSelector} from 'react-redux'
+import {studentsMapSelector} from '../../store/selectors/students'
+import {coursesMapSelector} from '../../store/selectors/courses'
 
 import Layout from '../../components/Layout/Layout'
-import { StudentsActions } from '../../store/actions/students'
-import { CoursesActions } from '../../store/actions/courses'
+import {StudentsActions} from '../../store/actions/students'
+import {CoursesActions} from '../../store/actions/courses'
 import {
     Button,
     Grid,
@@ -28,9 +28,9 @@ import {
     RemoveCircle as RemoveCircleIcon,
     AddCircle as AddCircleOutlineIcon,
 } from '@mui/icons-material'
-import { useCreateMatricula } from '../../hooks/useCreateMatricula'
-import { Student } from '../../types/Student'
-import { Course } from '../../types/Course'
+import {useCreateMatricula} from '../../hooks/useCreateMatricula'
+import {Student} from '../../types/Student'
+import {Course} from '../../types/Course'
 import {
     fireAction,
     getInitialState,
@@ -46,7 +46,7 @@ function MatriculaCreate() {
         matriculaCreateReducer,
         getInitialState()
     )
-    const { description, observation, orders: orderMap } = state
+    const {orders: orderMap} = state
 
     const orders = Object.values(orderMap) as any
 
@@ -56,7 +56,7 @@ function MatriculaCreate() {
     const courseMap = useSelector(coursesMapSelector)
     const courseList = courseMap ? Object.values(courseMap) : null
 
-    const { updateResult, updateError, createMatricula } = useCreateMatricula()
+    const {updateResult, updateError, createMatricula} = useCreateMatricula()
 
     useEffect(() => {
         if (updateResult) {
@@ -98,10 +98,10 @@ function MatriculaCreate() {
         }
 
         const payload = {
+            courseList: transformOrders(),
             student: {
                 id: student.id,
             },
-            items: transformOrders(),
         }
 
         createMatricula(payload)
@@ -109,6 +109,7 @@ function MatriculaCreate() {
 
     const handleSelectStudent = (event: any) => {
         const studentId = event.target.value
+        // @ts-ignore
         const selectedStudent = studentMap[studentId]
         setStudent(selectedStudent)
         localDispatch(fireAction(MatriculaCreateAction.resetOrders))
@@ -116,6 +117,7 @@ function MatriculaCreate() {
 
     const handleSelectCourse = (event: any) => {
         const courseId = event.target.value
+        // @ts-ignore
         const selectedCourse = courseMap[courseId]
         setCourse(selectedCourse)
     }
@@ -139,6 +141,7 @@ function MatriculaCreate() {
     }
 
     const renderOrders = () => {
+        // @ts-ignore
         return (
             <div className="tablePedidos">
                 <div className="tableOrders__head">
@@ -147,32 +150,13 @@ function MatriculaCreate() {
                 </div>
                 <div className="tableOrders__body">
                     {orders.map(
-                        (
-                            order:
-                                | {
-                                      id: Key | null | undefined
-                                      nombre:
-                                          | string
-                                          | number
-                                          | boolean
-                                          | ReactElement<
-                                                any,
-                                                | string
-                                                | JSXElementConstructor<any>
-                                            >
-                                          | ReactFragment
-                                          | ReactPortal
-                                          | null
-                                          | undefined
-                                  }
-                                | undefined
-                        ) => (
+                        (order) => (
                             <div
                                 className="tableOrders__body--row"
                                 key={order.id}
                             >
                                 <div className="tableOrders__body--col">
-                                    {order.nombre}
+                                    {order.name}
                                 </div>
                                 <div className="tableOrders__body--col">
                                     <IconButton
@@ -186,7 +170,7 @@ function MatriculaCreate() {
                                             )
                                         }
                                     >
-                                        <RemoveCircleIcon />
+                                        <RemoveCircleIcon/>
                                     </IconButton>
                                 </div>
                             </div>
@@ -199,16 +183,16 @@ function MatriculaCreate() {
 
     return (
         <Layout>
-            <br />
-            <br />
-            <br />
-            <br />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
 
             <Grid container spacing={4}>
                 <Grid item xs={4}>
                     <Select
                         id="student"
-                        style={{ width: '100%' }}
+                        style={{width: '100%'}}
                         value={student}
                         onChange={handleSelectStudent}
                     >
@@ -223,7 +207,7 @@ function MatriculaCreate() {
                 <Grid item xs={4}>
                     <Select
                         id="course"
-                        style={{ width: '100%' }}
+                        style={{width: '100%'}}
                         value={course}
                         onChange={handleSelectCourse}
                     >
@@ -247,21 +231,21 @@ function MatriculaCreate() {
                             )
                         }
                     >
-                        <AddCircleOutlineIcon />
+                        <AddCircleOutlineIcon/>
                     </IconButton>
                 </Grid>
             </Grid>
-            <br />
-            <br />
-            <br />
-            <br />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
                     <Paper elevation={3}>
-                        <div style={{ padding: '15px' }}>
+                        <div style={{padding: '15px'}}>
                             {orders.length === 0 && (
                                 <div>
-                                    You haven't add any course to your order yet
+                                    There is no registration yet
                                 </div>
                             )}
                             {orders.length > 0 && renderOrders()}
@@ -271,15 +255,15 @@ function MatriculaCreate() {
             </Grid>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
-                    <br />
-                    <br />
+                    <br/>
+                    <br/>
                     <Button
                         fullWidth
                         onClick={onNewMatricula}
                         variant="contained"
                         color="primary"
                     >
-                        Create Matricula
+                        Save Matricula
                     </Button>
                 </Grid>
             </Grid>
