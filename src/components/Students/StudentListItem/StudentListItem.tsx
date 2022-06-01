@@ -8,7 +8,7 @@ import {
     ListItemSecondaryAction,
     ListItemText,
 } from '@mui/material';
-import { Delete, Edit, Fastfood } from '@mui/icons-material';
+import {Delete, Edit, People as PeopleIcon} from '@mui/icons-material';
 
 const StudentListItem: React.FC<ListItemComponent<Student>> = ({
                                                                      item,
@@ -18,7 +18,7 @@ const StudentListItem: React.FC<ListItemComponent<Student>> = ({
     return (
         <ListItem key={item.id}>
             <Avatar>
-                <Fastfood />
+                <PeopleIcon/>
             </Avatar>
             <ListItemText
                 primary={`${item.names} ${item.lastNames}`}

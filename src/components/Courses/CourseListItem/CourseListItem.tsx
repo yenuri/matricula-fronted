@@ -2,7 +2,7 @@ import React from 'react';
 import { Course } from '../../../types/Course';
 import { ListItemComponent } from '../../CustomList/CustomList';
 import {Avatar, IconButton, ListItem, ListItemSecondaryAction, ListItemText} from "@mui/material";
-import {Delete, Edit, Fastfood} from "@mui/icons-material";
+import {Delete, Edit, FileCopy as FileCopyIcon} from "@mui/icons-material";
 
 const CourseListItem: React.FC<ListItemComponent<Course>> = ({
                                                                item,
@@ -12,7 +12,7 @@ const CourseListItem: React.FC<ListItemComponent<Course>> = ({
     return (
         <ListItem key={item.id}>
             <Avatar>
-                <Fastfood />
+                <FileCopyIcon/>
             </Avatar>
             <ListItemText
                 primary={item.name}
